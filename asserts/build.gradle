@@ -1,4 +1,23 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.8.0'
+    }
+}
+
+publish {
+    userOrg = 'st235'
+    groupId = 'com.github.st235'
+    artifactId = 'assertion-utils'
+    publishVersion = '0.0.1'
+    desc = 'Made your own assert clearly.'
+    website = 'https://github.com/st235/Assertion'
+}
 
 android {
     compileSdkVersion 27
