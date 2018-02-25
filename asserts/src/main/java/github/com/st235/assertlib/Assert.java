@@ -4,6 +4,9 @@
 package github.com.st235.assertlib;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+import java.util.Arrays;
 
 /**
  * Represents a class that provides static assertions to verify your code.
@@ -46,7 +49,11 @@ public final class Assert {
     }
 
     public static <T> void assertEquals(@NonNull String message, T one, T another) {
-        if (!isAssertAvailable() || one.equals(another)) {
+        if (isArray(one) || isArray(another)) {
+            throw new IllegalArgumentException("Arrays can not be compared with equals. Use assertArraysEquals instead.");
+        }
+
+        if (!isAssertAvailable() || equals(one, another)) {
             return;
         }
 
@@ -54,11 +61,39 @@ public final class Assert {
     }
 
     public static <T> void assertNotEquals(@NonNull String message, T one, T another) {
-        if (!isAssertAvailable() || !one.equals(another)) {
+        if (isArray(one) || isArray(another)) {
+            throw new IllegalArgumentException("Arrays can not be compared with equals. Use assertArraysNotEquals instead.");
+        }
+
+        if (!isAssertAvailable() || !equals(one, another)) {
             return;
         }
 
         throw new IllegalStateException(message);
+    }
+
+    public static <T> void assertArraysEquals(@NonNull String message, T[] one, T[] another) {
+        if (!isAssertAvailable() || Arrays.equals(one, another)) {
+            return;
+        }
+
+        throw new IllegalStateException(message);
+    }
+
+    public static <T> void assertArraysNotEquals(@NonNull String message, T[] one, T[] another) {
+        if (!isAssertAvailable() || !Arrays.equals(one, another)) {
+            return;
+        }
+
+        throw new IllegalStateException(message);
+    }
+
+    private static boolean isArray(@Nullable Object object) {
+        return object != null && object.getClass().isArray();
+    }
+
+    private static boolean equals(@Nullable Object a, @Nullable Object b) {
+        return (a == b) || (a != null && a.equals(b));
     }
 
     private static boolean isAssertAvailable() {
