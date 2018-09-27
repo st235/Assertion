@@ -12,22 +12,43 @@ Do `assertions` wisely!
 <dependency>
   <groupId>com.github.st235</groupId>
   <artifactId>assertion-utils</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
   <type>pom</type>
 </dependency>
 ```
 
 - Gradle
 ```
-implementation 'com.github.st235:assertion-utils:0.0.2'
+implementation 'com.github.st235:assertion-utils:0.0.3'
 ```
 **Note**: `compile` at the old versions of Gradle
 
 - Ivy
 ```
-<dependency org='com.github.st235' name='assertion-utils' rev='0.0.2'>
+<dependency org='com.github.st235' name='assertion-utils' rev='0.0.3'>
   <artifact name='assertion-utils' ext='pom' />
 </dependency>
+```
+
+## SetUp
+
+You should create and setup environment before first usage.
+
+
+```java
+
+    private static class DefaultEnvironment extends AssertionEnvironment {
+        @Override
+        public boolean isEnabled() {
+            return BuildConfig.DEBUG;
+        }
+    }
+
+    @Override
+    public void onCreate() {
+        Assert.setEnvironment(new DefaultEnvironment());
+    }
+
 ```
 
 ## Usage

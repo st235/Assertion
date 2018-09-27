@@ -13,7 +13,14 @@ import java.util.Arrays;
  */
 public final class Assert {
 
+    @Nullable
+    private static AssertionEnvironment sCurrentEnvironment;
+
     private Assert() {
+    }
+
+    public static void setEnvironment(@NonNull AssertionEnvironment environment) {
+        sCurrentEnvironment = environment;
     }
 
     public static <T> void assertNull(@NonNull String message, T object) {
@@ -21,7 +28,7 @@ public final class Assert {
             return;
         }
 
-        throw new IllegalStateException(message);
+        fall(message);
     }
 
     public static <T> void assertNotNull(@NonNull String message, T object) {
@@ -29,7 +36,7 @@ public final class Assert {
             return;
         }
 
-        throw new IllegalStateException(message);
+        fall(message);
     }
 
     public static void assertTrue(@NonNull String message, boolean flag) {
@@ -37,7 +44,7 @@ public final class Assert {
             return;
         }
 
-        throw new IllegalStateException(message);
+        fall(message);
     }
 
     public static void assertFalse(@NonNull String message, boolean flag) {
@@ -45,7 +52,7 @@ public final class Assert {
             return;
         }
 
-        throw new IllegalStateException(message);
+        fall(message);
     }
 
     public static <T> void assertEquals(@NonNull String message, T one, T another) {
@@ -57,7 +64,7 @@ public final class Assert {
             return;
         }
 
-        throw new IllegalStateException(message);
+        fall(message);
     }
 
     public static <T> void assertNotEquals(@NonNull String message, T one, T another) {
@@ -69,7 +76,7 @@ public final class Assert {
             return;
         }
 
-        throw new IllegalStateException(message);
+        fall(message);
     }
 
     public static <T> void assertArraysEquals(@NonNull String message, T[] one, T[] another) {
@@ -77,7 +84,7 @@ public final class Assert {
             return;
         }
 
-        throw new IllegalStateException(message);
+        fall(message);
     }
 
     public static <T> void assertArraysNotEquals(@NonNull String message, T[] one, T[] another) {
@@ -85,7 +92,7 @@ public final class Assert {
             return;
         }
 
-        throw new IllegalStateException(message);
+        fall(message);
     }
 
     private static boolean isArray(@Nullable Object object) {
@@ -95,8 +102,20 @@ public final class Assert {
     private static boolean equals(@Nullable Object a, @Nullable Object b) {
         return (a == b) || (a != null && a.equals(b));
     }
+    
+    private static void fall(@NonNull String message) {
+        if (sCurrentEnvironment == null) {
+            throw new IllegalStateException("There is no environment here. Use #setEnvironment");
+        }
+        
+        sCurrentEnvironment.fall(message);
+    }
 
     private static boolean isAssertAvailable() {
-        return BuildConfig.DEBUG;
+        if (sCurrentEnvironment == null) {
+            throw new IllegalStateException("There is no environment here. Use #setEnvironment");
+        }
+
+        return sCurrentEnvironment.isEnabled();
     }
 }

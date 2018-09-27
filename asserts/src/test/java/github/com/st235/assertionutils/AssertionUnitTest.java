@@ -1,10 +1,24 @@
 package github.com.st235.assertionutils;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import github.com.st235.assertlib.Assert;
+import github.com.st235.assertlib.AssertionEnvironment;
 
 public class AssertionUnitTest {
+
+    private static class TestEnvironment extends AssertionEnvironment {
+        @Override
+        public boolean isEnabled() {
+            return true;
+        }
+    }
+
+    @Before
+    public void setUp() {
+        Assert.setEnvironment(new TestEnvironment());
+    }
 
     @Test
     public void assertNull_isCorrect_whenObjectIsNull() {
