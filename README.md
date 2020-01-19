@@ -1,5 +1,5 @@
 [ ![Download](https://api.bintray.com/packages/st235/maven/assertion-utils/images/download.svg) ](https://bintray.com/st235/maven/assertion-utils/_latestVersion)
-[![Build Status](https://travis-ci.org/st235/Assertion.svg?branch=master)](https://travis-ci.org/st235/Assertion)
+[![CircleCI](https://circleci.com/gh/st235/Assertion.svg?style=svg)](https://circleci.com/gh/st235/Assertion)
 
 # Assertion Util
 
