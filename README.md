@@ -12,23 +12,25 @@ Do `assertions` wisely!
 <dependency>
   <groupId>com.github.st235</groupId>
   <artifactId>assertion-utils</artifactId>
-  <version>0.0.3</version>
+  <version>X.X.X</version>
   <type>pom</type>
 </dependency>
 ```
 
 - Gradle
 ```
-implementation 'com.github.st235:assertion-utils:0.0.3'
+implementation 'com.github.st235:assertion-utils:X.X.X'
 ```
 **Note**: `compile` at the old versions of Gradle
 
 - Ivy
 ```
-<dependency org='com.github.st235' name='assertion-utils' rev='0.0.3'>
+<dependency org='com.github.st235' name='assertion-utils' rev='X.X.X'>
   <artifact name='assertion-utils' ext='pom' />
 </dependency>
 ```
+
+P.S.: Check out latest version code in badge at the top of this page.
 
 ## SetUp
 

@@ -18,10 +18,12 @@ object Assert {
         }
 
     @Synchronized
+    @JvmStatic
     fun setEnvironment(environment: AssertionEnvironment) {
         sCurrentEnvironment = environment
     }
 
+    @JvmStatic
     fun <T> assertNull(message: String, obj: T?) {
         if (!isAssertAvailable || obj == null) {
             return
@@ -29,6 +31,7 @@ object Assert {
         fall(message)
     }
 
+    @JvmStatic
     fun <T> assertNotNull(message: String, obj: T?) {
         if (!isAssertAvailable || obj != null) {
             return
@@ -36,6 +39,7 @@ object Assert {
         fall(message)
     }
 
+    @JvmStatic
     fun assertTrue(message: String, flag: Boolean) {
         if (!isAssertAvailable || flag) {
             return
@@ -43,6 +47,7 @@ object Assert {
         fall(message)
     }
 
+    @JvmStatic
     fun assertFalse(message: String, flag: Boolean) {
         if (!isAssertAvailable || !flag) {
             return
@@ -50,6 +55,7 @@ object Assert {
         fall(message)
     }
 
+    @JvmStatic
     fun <T> assertEquals(message: String, one: T, another: T) {
         require(!(isArray(one) || isArray(another))) { "Arrays can not be compared with equals. Use assertArraysEquals instead." }
 
@@ -60,6 +66,7 @@ object Assert {
         fall(message)
     }
 
+    @JvmStatic
     fun <T> assertNotEquals(message: String, one: T, another: T) {
         require(!(isArray(one) || isArray(another))) { "Arrays can not be compared with equals. Use assertArraysNotEquals instead." }
 
@@ -70,6 +77,7 @@ object Assert {
         fall(message)
     }
 
+    @JvmStatic
     fun <T> assertArraysEquals(message: String, one: Array<T>?, another: Array<T>?) {
         if (!isAssertAvailable || Arrays.equals(one, another)) {
             return
@@ -77,6 +85,7 @@ object Assert {
         fall(message)
     }
 
+    @JvmStatic
     fun <T> assertArraysNotEquals(message: String, one: Array<T>?, another: Array<T>?) {
         if (!isAssertAvailable || !Arrays.equals(one, another)) {
             return
