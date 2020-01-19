@@ -7,6 +7,6 @@ abstract class AssertionEnvironment {
     abstract val isEnabled: Boolean
 
     open fun fall(message: String?) {
-        throw IllegalStateException(message)
+        throw AssertionException(message)
     }
 }

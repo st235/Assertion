@@ -93,6 +93,11 @@ object Assert {
         fall(message)
     }
 
+    @JvmStatic
+    fun assertFail(message: String) {
+        fall(message)
+    }
+
     private fun isArray(obj: Any?): Boolean {
         return obj != null && obj.javaClass.isArray
     }

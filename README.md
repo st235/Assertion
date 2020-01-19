@@ -34,11 +34,66 @@ P.S.: Check out latest version code in badge at the top of this page.
 
 ## SetUp
 
-You should create and setup environment before first usage.
+First of all, you should set up your assertion environment.
+Usually it happens in your Application class.
 
+```kotlin
+class App: Application() {
+    override fun onCreate() {
+        super.onCreate()
+        Assert.setEnvironment(DefaultEnvironment(BuildConfig.DEBUG))
+    }
+}
+```
+
+Then you're able to use it in your code.
+
+```kotlin
+        when (calculateType()) {
+            A -> Log.d(TAG, "A")
+            B -> Log.d(TAG, "B")
+            else -> {
+                // should fail only at production
+                Assert.assertFail("Unknown statement reached")
+            }
+        }
+```
+
+## Environment
+
+There is one default environment called `DefaultEnvironemt`. Its really easy to use - it accepts boolean flag, 
+which means do assertion enabled in current build or not.
+
+Usage example:
+
+```kotlin
+    DefaultEnvironment(BuildConfig.DEBUG)
+```
+
+But if u need more flexibility in environment set up, you're always able to inherit base class for all
+the environments `AssertionEnvironment`
+
+```kotlin
+abstract class AssertionEnvironment {
+
+    abstract val isEnabled: Boolean
+
+    open fun fall(message: String?) {
+        throw AssertionException(message)
+    }
+}
+```
+
+**val isEnabled: Boolean** - switch on or off the assertion mechanism
+
+**fun fall(message: String?)** - assertion fails and environment calls this method to react properly. Default behavior
+will throws `AssertionException`
+
+## Java
+
+This util is backward compatible with java code. Use it as in examples below.
 
 ```java
-
     private static class DefaultEnvironment extends AssertionEnvironment {
         @Override
         public boolean isEnabled() {
@@ -51,15 +106,8 @@ You should create and setup environment before first usage.
         Assert.setEnvironment(new DefaultEnvironment());
     }
 
-```
-
-## Usage
-
-Some examples listed below
-
-```java
-        Assert.assertNull("Object must be null", a);
-        Assert.assertNotNull("Object must be not null", b);
+    Assert.assertNull("Object must be null", a);
+    Assert.assertNotNull("Object must be not null", b);
 ```
 
 ## License
