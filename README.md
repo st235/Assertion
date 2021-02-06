@@ -1,4 +1,4 @@
-[ ![Download](https://api.bintray.com/packages/st235/maven/assertion-utils/images/download.svg) ](https://bintray.com/st235/maven/assertion-utils/_latestVersion)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.st235/assertion-utils/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.st235/assertion-utils)
 [![CircleCI](https://circleci.com/gh/st235/Assertion.svg?style=svg)](https://circleci.com/gh/st235/Assertion)
 
 # Assertion Util
@@ -6,6 +6,20 @@
 Do `assertions` wisely!
 
 ## Installation
+
+__Important: library was migrated from JCenter to MavenCentral__ 
+
+It means that it may be necessary to add __mavenCentral__ repository to your repositories list
+
+```groovy
+allprojects {
+    repositories {
+        // your repositories
+
+        mavenCentral()
+    }
+}
+```
 
 - Maven
 ```
